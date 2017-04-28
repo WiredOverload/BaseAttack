@@ -77,11 +77,11 @@ public class BaseAttack extends Application {
                         //time based movement to coordinate movement
                         p1.update();
                         gc.drawImage(spaceBase720, 0, 0);
-                        gc.drawImage(spaceClouds720, cloudTimer, 0);
-                        gc.drawImage(spaceClouds720, cloudTimer - 2560, 0);
+                        gc.drawImage(spaceClouds720, cloudTimer%2560, 0);
+                        gc.drawImage(spaceClouds720, (cloudTimer - 2560)%2560, 0);
                         gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                         gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
-                        if (cloudTimer == 2560) {
+                        if (cloudTimer == 2560*2) {
                             cloudTimer = 0;
                         } else {
                             cloudTimer++;
