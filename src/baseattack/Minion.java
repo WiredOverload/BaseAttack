@@ -31,10 +31,10 @@ public class Minion {
     public Minion(int type) {
         switch(type){
             case 1:
-                image = new Image("Assets/medium1");
+                image = new Image("Assets/medium1.png");
                 break;
             case 2:
-                image = new Image("Assets/medium2");
+                image = new Image("Assets/medium2.png");
                 break;
         }
     }

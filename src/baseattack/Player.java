@@ -55,7 +55,7 @@ public class Player {
     }
 
     //actual update code
-    public void update(int tick) {
+    public void update() {
         money += income;
         
     }
