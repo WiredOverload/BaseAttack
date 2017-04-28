@@ -18,10 +18,14 @@ import java.util.ArrayList;
 public class Base {
 
     private int health;
+    private int x;
+    private int y;
     private ArrayList minions = new ArrayList();
 
-    public Base(int health) {
+    public Base(int health, int x, int y) {
         this.health = health;
+        this.x = x;
+        this.y = y;
     }
 
     public int getHealth() {
@@ -32,6 +36,15 @@ public class Base {
         return minions;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    
     public void setHealth(int health) {
         this.health = health;
     }
@@ -40,5 +53,16 @@ public class Base {
         this.minions = minions;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
     
+
+    public void update() {
+        
+    }
 }

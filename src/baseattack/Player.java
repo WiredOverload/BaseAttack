@@ -23,10 +23,10 @@ public class Player {
     //upgrades
     private int income;
 
-    public Player(int health, int money) {
+    public Player(int health, int money, int x) {
         this.money = money;
-        for(int i = 0; i < 5; i++)
-            bases.add(new Base(health));
+        for(int i = 0; i < 5; i++) //this is assuming bases are 64x64 pixels large, change as needed
+            bases.add(new Base(health, x, (64*i) + 32));
         this.income = 10;
     }
 

@@ -25,8 +25,8 @@ public class BaseAttack extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Player p1 = new Player(100, 0); //user player
-        Player p2; //AI player
+        Player p1 = new Player(100, 0, 128); //user player
+        Player p2 = new Player(100, 0, 1024 - 128);//AI player
         
         
         Button btn = new Button();

@@ -22,21 +22,73 @@ import javafx.scene.image.Image;
  */
 public class Minion {
     private int health;
+    private int speed;
     private int meleeAttack; //attack value of melee attacks
     private int rangeAttack; //attack value of ranged attacks
-    private int spawnTick; //the tick in which this minion was spawned
+    private int x; //the x coordinate of the minion
     private Image image; //sprite for the minion
 
     public Minion(int type) {
         switch(type){
             case 1:
-                image = new Image("");
+                image = new Image("Assets/medium1");
                 break;
             case 2:
-                image = new Image("");
+                image = new Image("Assets/medium2");
                 break;
         }
     }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getMeleeAttack() {
+        return meleeAttack;
+    }
+
+    public int getRangeAttack() {
+        return rangeAttack;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setMeleeAttack(int meleeAttack) {
+        this.meleeAttack = meleeAttack;
+    }
+
+    public void setRangeAttack(int rangeAttack) {
+        this.rangeAttack = rangeAttack;
+    }
+
+    public void setX(int spawnTick) {
+        this.x = spawnTick;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
     
+    public void update() {
+        this.x += speed;
+    }
     
 }
