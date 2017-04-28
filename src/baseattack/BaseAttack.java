@@ -52,7 +52,7 @@ public class BaseAttack extends Application {
         Scene scene = new Scene(root, 1280, 720);
         primaryStage.setTitle("Base Attack!");
         primaryStage.setScene(scene);
-        Canvas canvas = new Canvas(1024, 512);
+        Canvas canvas = new Canvas(1280, 720);
         root.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
