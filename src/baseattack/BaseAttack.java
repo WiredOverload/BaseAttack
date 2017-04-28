@@ -38,18 +38,17 @@ public class BaseAttack extends Application {
         //Added some style to button 
         Button btn = new Button();
         btn.setText("Start Game");
-        btn.setFont(Font.font ("Impact", 50)); 
+        btn.setFont(Font.font("Impact", 50));
         btn.setStyle("-fx-text-fill: black; -fx-background-color: red;");
         btn.setTranslateY(40);
-        
+
         //Added title to main menu and added style
-        Text title = new Text(); 
-        title.setText("Base Attack!"); 
-        title.setFont(Font.font ("Impact", 80));
+        Text title = new Text();
+        title.setText("Base Attack!");
+        title.setFont(Font.font("Impact", 80));
         title.setStroke(Color.RED);
         title.setFill(Color.BLACK);
-        title.setTranslateY(-80); 
-        
+        title.setTranslateY(-80);
 
         //neccessary javafx stuff
         StackPane root = new StackPane();
@@ -77,11 +76,11 @@ public class BaseAttack extends Application {
                         //time based movement to coordinate movement
                         p1.update();
                         gc.drawImage(spaceBase720, 0, 0);
-                        gc.drawImage(spaceClouds720, cloudTimer%2560, 0);
-                        gc.drawImage(spaceClouds720, (cloudTimer - 2560)%2560, 0);
+                        gc.drawImage(spaceClouds720, cloudTimer % 2560, 0);
+                        gc.drawImage(spaceClouds720, (cloudTimer % 2560) - 2560, 0);
                         gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                         gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
-                        if (cloudTimer == 2560*2) {
+                        if (cloudTimer == 2560 * 2) {
                             cloudTimer = 0;
                         } else {
                             cloudTimer++;
@@ -102,11 +101,11 @@ public class BaseAttack extends Application {
                 //time based movement to coordinate movement
                 p1.update();
                 gc.drawImage(spaceBase720, 0, 0);
-                gc.drawImage(spaceClouds720, cloudTimer, 0);
-                gc.drawImage(spaceClouds720, cloudTimer - 2560, 0);
+                gc.drawImage(spaceClouds720, cloudTimer % 2560, 0);
+                gc.drawImage(spaceClouds720, (cloudTimer % 2560) - 2560, 0);
                 gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                 gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
-                if (cloudTimer == 2560) {
+                if (cloudTimer == 2560 * 2) {
                     cloudTimer = 0;
                 } else {
                     cloudTimer++;
