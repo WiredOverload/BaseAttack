@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -27,24 +28,12 @@ public class BaseAttack extends Application {
     public void start(Stage primaryStage) {
         Player p1 = new Player(100, 0, 128); //user player
         Player p2 = new Player(100, 0, 1024 - 128);//AI player
-        
-        
+        Image spaceBase720 = new Image("Assets/spaceBase720.png");//background stars
+        Image spaceClouds720 = new Image("Assets/spaceClouds720.png");
+        Image spaceClouds720v2 = new Image("Assets/spaceClouds720v2.png");
+
         Button btn = new Button();
         btn.setText("Start Game");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                new AnimationTimer() {
-                    int tick = 0;
-                    public void handle(long currentNanoTime) {
-                        //actual gameloop code goes here
-                        tick++;
-                        p1.update(tick);
-                    }
-                }.start();
-            }
-        });
 
         //neccessary javafx stuff
         StackPane root = new StackPane();
@@ -52,11 +41,60 @@ public class BaseAttack extends Application {
         Scene scene = new Scene(root, 1280, 720);
         primaryStage.setTitle("Base Attack!");
         primaryStage.setScene(scene);
-        Canvas canvas = new Canvas(1024, 512);
+        Canvas canvas = new Canvas(1280, 720);
         root.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                new AnimationTimer() {
+                    int tick = 0;
+                    int cloudTimer = 0;
+
+                    public void handle(long currentNanoTime) {
+                        //actual gameloop code goes here
+                        tick++; //tick isn't really necessary anymore as we have switched from
+                        //time based movement to coordinate movement
+                        p1.update();
+                        gc.drawImage(spaceBase720, 0, 0);
+                        gc.drawImage(spaceClouds720, cloudTimer, 0);
+                        gc.drawImage(spaceClouds720, cloudTimer - 2560, 0);
+                        gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
+                        gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
+                        if (cloudTimer == 2560) {
+                            cloudTimer = 0;
+                        } else {
+                            cloudTimer++;
+                        }
+                    }
+                }.start();
+            }
+        });
+
+        //for some reason this wasn't running in the button action handler, so it's temporarily here to see if it works
+        new AnimationTimer() {
+            int tick = 0;
+            int cloudTimer = 0;
+
+            public void handle(long currentNanoTime) {
+                //actual gameloop code goes here
+                tick++; //tick isn't really necessary anymore as we have switched from
+                //time based movement to coordinate movement
+                p1.update();
+                gc.drawImage(spaceBase720, 0, 0);
+                gc.drawImage(spaceClouds720, cloudTimer, 0);
+                gc.drawImage(spaceClouds720, cloudTimer - 2560, 0);
+                gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
+                gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
+                if (cloudTimer == 2560) {
+                    cloudTimer = 0;
+                } else {
+                    cloudTimer++;
+                }
+            }
+        }.start();
 
         primaryStage.show();
     }
