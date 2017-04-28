@@ -18,57 +18,46 @@ import java.util.ArrayList;
 public class Player {
 
     //basic stats
-    private int health;
     private int money;
-    private ArrayList minions = new ArrayList();
+    private ArrayList bases = new ArrayList();
     //upgrades
-    private int spawnRate;
     private int income;
 
     public Player(int health, int money) {
         this.money = money;
-        this.health = health;
-        this.spawnRate = 120;
+        for(int i = 0; i < 5; i++)
+            bases.add(new Base(health));
         this.income = 10;
-    }
-
-    public int getHealth() {
-        return health;
     }
 
     public int getMoney() {
         return money;
     }
 
-    public int getSpawnRate() {
-        return spawnRate;
-    }
-
     public int getIncome() {
         return income;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public ArrayList getBases() {
+        return bases;
     }
 
     public void setMoney(int money) {
         this.money = money;
     }
 
-    public void setSpawnRate(int spawnRate) {
-        this.spawnRate = spawnRate;
-    }
-
     public void setIncome(int income) {
         this.income = income;
+    }
+
+    public void setBases(ArrayList bases) {
+        this.bases = bases;
     }
 
     //actual update code
     public void update(int tick) {
         money += income;
-        if(tick % spawnRate == 0)//need to add type logic
-            minions.add(new Minion(1));
+        
     }
 
 }
