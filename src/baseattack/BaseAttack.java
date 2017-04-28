@@ -16,6 +16,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -32,17 +35,31 @@ public class BaseAttack extends Application {
         Image spaceClouds720 = new Image("Assets/spaceClouds720.png");
         Image spaceClouds720v2 = new Image("Assets/spaceClouds720v2.png");
 
+        //Added some style to button 
         Button btn = new Button();
         btn.setText("Start Game");
+        btn.setFont(Font.font("Impact", 50));
+        btn.setStyle("-fx-text-fill: black; -fx-background-color: red;");
+        btn.setTranslateY(40);
+
+        //Added title to main menu and added style
+        Text title = new Text();
+        title.setText("Base Attack!");
+        title.setFont(Font.font("Impact", 80));
+        title.setStroke(Color.RED);
+        title.setFill(Color.BLACK);
+        title.setTranslateY(-80);
 
         //neccessary javafx stuff
         StackPane root = new StackPane();
         root.getChildren().add(btn);
+        root.getChildren().add(title);
         Scene scene = new Scene(root, 1280, 720);
-        primaryStage.setTitle("Base Attack!");
+        primaryStage.setTitle("Base Attack");
         primaryStage.setScene(scene);
         Canvas canvas = new Canvas(1280, 720);
         root.getChildren().add(canvas);
+        canvas.toBack();
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
@@ -59,11 +76,11 @@ public class BaseAttack extends Application {
                         //time based movement to coordinate movement
                         p1.update();
                         gc.drawImage(spaceBase720, 0, 0);
-                        gc.drawImage(spaceClouds720, cloudTimer, 0);
-                        gc.drawImage(spaceClouds720, cloudTimer - 2560, 0);
+                        gc.drawImage(spaceClouds720, cloudTimer % 2560, 0);
+                        gc.drawImage(spaceClouds720, (cloudTimer % 2560) - 2560, 0);
                         gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                         gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
-                        if (cloudTimer == 2560) {
+                        if (cloudTimer == 2560 * 2) {
                             cloudTimer = 0;
                         } else {
                             cloudTimer++;
@@ -84,11 +101,11 @@ public class BaseAttack extends Application {
                 //time based movement to coordinate movement
                 p1.update();
                 gc.drawImage(spaceBase720, 0, 0);
-                gc.drawImage(spaceClouds720, cloudTimer, 0);
-                gc.drawImage(spaceClouds720, cloudTimer - 2560, 0);
+                gc.drawImage(spaceClouds720, cloudTimer % 2560, 0);
+                gc.drawImage(spaceClouds720, (cloudTimer % 2560) - 2560, 0);
                 gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                 gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
-                if (cloudTimer == 2560) {
+                if (cloudTimer == 2560 * 2) {
                     cloudTimer = 0;
                 } else {
                     cloudTimer++;
