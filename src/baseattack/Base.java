@@ -7,6 +7,8 @@
 package baseattack;
 
 import java.util.ArrayList;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 /**
  * Assignment: Author: Cumulative completion time:
@@ -19,8 +21,9 @@ public class Base {
 
     private int health;
     private int x;
-    private int y;
-    private ArrayList minions = new ArrayList();
+    private int y;//this y coordinate has the y axis at the top of the screen
+    private ArrayList<Minion> minions = new ArrayList<Minion>();
+    private Image image = new Image("Assets/base2.png");//placeholder image
 
     public Base(int health, int x, int y) {
         this.health = health;
@@ -64,5 +67,12 @@ public class Base {
 
     public void update() {
         
+    }
+    
+    public void render(GraphicsContext gc) {
+        for(int i = 0; i < minions.size(); i++){
+            minions.get(i).render(gc, y);
+        }
+        gc.drawImage(image, x, y);
     }
 }

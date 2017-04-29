@@ -129,7 +129,7 @@ public class BaseAttack extends Application {
                 tick++; //tick isn't really necessary anymore as we have switched from
                 //time based movement to coordinate movement
                 p1.update();
-                //not strictly necessary to check scene, but should be more efficient tahn drawing 2x more than needed
+                //not strictly necessary to check scene, but should be more efficient than drawing 2x more than needed
                 if (primaryStage.getScene() == scene1) {
                     gc.drawImage(spaceBase720, 0, 0);
                     gc.drawImage(spaceClouds720v1, cloudTimer % 2560, 0);
@@ -143,6 +143,8 @@ public class BaseAttack extends Application {
                     gc2.drawImage(spaceClouds720v1, (cloudTimer % 2560) - 2560, 0);
                     gc2.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                     gc2.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
+                    
+                    p1.render(gc2);
                 }
                 else{
                     gc3.drawImage(spaceBase720, 0, 0);
