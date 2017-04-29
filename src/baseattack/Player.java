@@ -7,6 +7,7 @@
 package baseattack;
 
 import java.util.ArrayList;
+import javafx.scene.canvas.GraphicsContext;
 
 /**
  * Assignment: Author: Cumulative completion time:
@@ -19,7 +20,7 @@ public class Player {
 
     //basic stats
     private int money;
-    private ArrayList bases = new ArrayList();
+    private ArrayList<Base> bases = new ArrayList<Base>();
     //upgrades
     private int income;
 
@@ -58,6 +59,12 @@ public class Player {
     public void update() {
         money += income;
         
+    }
+    
+    public void render(GraphicsContext gc) {
+        for(int i = 0; i < bases.size(); i++) {
+            bases.get(i).render(gc);
+        }
     }
 
 }
