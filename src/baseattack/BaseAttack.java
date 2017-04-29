@@ -26,6 +26,37 @@ import javafx.stage.Stage;
 /**
  *
  * @author Michael Hodges
+ * 
+ * @todo
+ *      This is really in no particular order, feel free to add
+ *      Add rendering method to player objects
+ *      Add buttons to gameplay
+ *          spawn minion button x3
+ *          upgrade button
+ *          pause menu button
+ *      Add AI
+ *      Add Minion logic
+ *          ranged
+ *          melee
+ *      Add logging of user and time to a log file whenever game starts
+ *      Add functionality to pause menu
+ *          ability to access it
+ *          write current game state to file
+ *          audio settings
+ *          buttons for all the above
+ *      Add sound effects
+ *          explosions
+ *          pew pew laser sounds
+ *          space melee sound?
+ *          music
+ *      Add VFX
+ *          hit indicator (smallExplosion)
+ *          minion death explosions
+ *          minion death pieces that fly out
+ *      Add base artwork
+ *      Add very light third cloud effect over everything?
+ * @bugs
+ *      None yet
  */
 public class BaseAttack extends Application {
 
@@ -98,7 +129,7 @@ public class BaseAttack extends Application {
                 tick++; //tick isn't really necessary anymore as we have switched from
                 //time based movement to coordinate movement
                 p1.update();
-                //not strictly necessary to check scene, but should be more efficient
+                //not strictly necessary to check scene, but should be more efficient tahn drawing 2x more than needed
                 if (primaryStage.getScene() == scene1) {
                     gc.drawImage(spaceBase720, 0, 0);
                     gc.drawImage(spaceClouds720v1, cloudTimer % 2560, 0);
