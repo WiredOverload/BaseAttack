@@ -19,16 +19,22 @@ import javafx.scene.image.Image;
  */
 public class Base {
 
+    private Boolean direction;
     private int health;
     private int x;
     private int y;//this y coordinate has the y axis at the top of the screen
     private ArrayList<Minion> minions = new ArrayList<Minion>();
-    private Image image = new Image("Assets/base2.png");//placeholder image
+    private Image image;//placeholder image
 
-    public Base(int health, int x, int y) {
+    public Base(Boolean direction, int health, int x, int y) {
+        this.direction = direction;
         this.health = health;
         this.x = x;
         this.y = y;
+        if(direction == false)
+            image = new Image("Assets/base2.png");
+        else
+            image = new Image("Assets/base1.png");
     }
 
     public int getHealth() {
@@ -73,6 +79,9 @@ public class Base {
         for(int i = 0; i < minions.size(); i++){
             minions.get(i).render(gc, y);
         }
-        gc.drawImage(image, x, y);
+        if(direction == false)//neccesary to check as images render starting at the top left corner of the image
+            gc.drawImage(image, x, y);
+        else
+            gc.drawImage(image, x - 64, y);
     }
 }
