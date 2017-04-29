@@ -62,8 +62,8 @@ public class BaseAttack extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Player p1 = new Player(100, 0, 128); //user player
-        Player p2 = new Player(100, 0, 1024 - 128);//AI player
+        Player p1 = new Player(false, 100, 0); //user player
+        Player p2 = new Player(true, 100, 0);//AI player
         Image spaceBase720 = new Image("Assets/spaceBase720.png");//background stars
         Image spaceClouds720v1 = new Image("Assets/spaceClouds720.png");//clouds right side up
         Image spaceClouds720v2 = new Image("Assets/spaceClouds720v2.png");//clouds upside down
@@ -145,6 +145,7 @@ public class BaseAttack extends Application {
                     gc2.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
                     
                     p1.render(gc2);
+                    p2.render(gc2);
                 }
                 else{
                     gc3.drawImage(spaceBase720, 0, 0);
