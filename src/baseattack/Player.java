@@ -7,6 +7,7 @@
 package baseattack;
 
 import java.util.ArrayList;
+import javafx.scene.canvas.GraphicsContext;
 
 /**
  * Assignment: Author: Cumulative completion time:
@@ -18,16 +19,22 @@ import java.util.ArrayList;
 public class Player {
 
     //basic stats
+    Boolean direction;//false is facing right, true is facing left
     private int money;
-    private ArrayList bases = new ArrayList();
+    private ArrayList<Base> bases = new ArrayList<Base>();
     //upgrades
     private int income;
 
-    public Player(int health, int money, int x) {
+    public Player(Boolean direction, int health, int money) {
+        this.direction = direction;
         this.money = money;
-        for(int i = 0; i < 5; i++) //this is assuming bases are 64x64 pixels large, change as needed
-            bases.add(new Base(health, x, (64*i) + 32));
         this.income = 10;
+        for(int i = 0; i < 5; i++) {//this is assuming bases are 64x64 pixels large, change as needed
+            if(direction == false)
+                bases.add(new Base(direction, health, 64, (128*i) + 64));
+            else
+                bases.add(new Base(direction, health, 1280 - 64, (128*i) + 64));
+        }
     }
 
     public int getMoney() {
@@ -42,6 +49,10 @@ public class Player {
         return bases;
     }
 
+    public Boolean getDirection() {
+        return direction;
+    }
+
     public void setMoney(int money) {
         this.money = money;
     }
@@ -54,10 +65,20 @@ public class Player {
         this.bases = bases;
     }
 
+    public void setDirection(Boolean direction) {
+        this.direction = direction;
+    }
+
     //actual update code
     public void update() {
         money += income;
         
+    }
+    
+    public void render(GraphicsContext gc) {
+        for(int i = 0; i < bases.size(); i++) {
+            bases.get(i).render(gc);
+        }
     }
 
 }

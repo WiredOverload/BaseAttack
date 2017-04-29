@@ -7,6 +7,7 @@
 
 package baseattack;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 
@@ -91,4 +92,7 @@ public class Minion {
         this.x += speed;
     }
     
+    public void render(GraphicsContext gc, int y) {
+        gc.drawImage(image, x, y);
+    }
 }
