@@ -26,6 +26,7 @@ public class Minion {
     private int speed;
     private int meleeAttack; //attack value of melee attacks
     private int rangeAttack; //attack value of ranged attacks
+    private int cooldown;
     private int x; //the x coordinate of the minion
     private Image image; //sprite for the minion
 
@@ -64,6 +65,10 @@ public class Minion {
         return speed;
     }
 
+    public int getCooldown() {
+        return cooldown;
+    }
+
     public void setHealth(int health) {
         this.health = health;
     }
@@ -87,12 +92,19 @@ public class Minion {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+
+    public void setCooldown(int cooldown) {
+        this.cooldown = cooldown;
+    }
     
     public void update() {
         this.x += speed;
     }
     
-    public void render(GraphicsContext gc, int y) {
-        gc.drawImage(image, x, y);
+    public void render(GraphicsContext gc, int y, boolean direction) {
+        if(direction == false)
+            gc.drawImage(image, x, y);
+        if(direction == true)//change 32 to dynamic size based on sprite size of ship
+            gc.drawImage(image, x - 32, y);
     }
 }

@@ -36,8 +36,10 @@ import javafx.stage.Stage;
  * 
  * @todo
  *      This is really in no particular order, feel free to add
- *      Add rendering method to player objects
+ *      Add rotation to rendering
  *      Add AI
+ *      Add more buttons, 4 to each base
+ *      Add main button functionality
  *      Add Minion logic
  *          ranged
  *          melee
@@ -113,6 +115,14 @@ public class BaseAttack extends Application {
         title.setStroke(Color.RED);
         title.setFill(Color.BLACK);
         title.setTranslateY(-80);
+        
+        //money bar for gameplay
+        Text money = new Text();
+        money.setText("0");
+        money.setFont(Font.font("Impact", 80));
+        money.setStroke(Color.RED);
+        money.setFill(Color.BLACK);
+        money.setTranslateY(-320);
 
         //turns out each scene needs its own root
         StackPane root1 = new StackPane();//for title screen
@@ -127,6 +137,7 @@ public class BaseAttack extends Application {
         root2.getChildren().add(mbtn3);
         root2.getChildren().add(pbtn);
         root2.getChildren().add(ubtn);
+        root2.getChildren().add(money);
 
         Scene scene1 = new Scene(root1, 1280, 720);//title screen
         Scene scene2 = new Scene(root2, 1280, 720);//gameplay
@@ -188,6 +199,8 @@ public class BaseAttack extends Application {
                 tick++; //tick isn't really necessary anymore as we have switched from
                 //time based movement to coordinate movement
                 p1.update();
+                //money update
+                money.setText(Integer.toString(p1.getMoney()));
                 //not strictly necessary to check scene, but should be more efficient than drawing 2x more than needed
                 if (primaryStage.getScene() == scene1) {
                     gc.drawImage(spaceBase720, 0, 0);

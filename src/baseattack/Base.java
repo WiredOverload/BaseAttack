@@ -77,7 +77,7 @@ public class Base {
     
     public void render(GraphicsContext gc) {
         for(int i = 0; i < minions.size(); i++){
-            minions.get(i).render(gc, y);
+            minions.get(i).render(gc, y, direction);
         }
         if(direction == false)//neccesary to check as images render starting at the top left corner of the image
             gc.drawImage(image, x, y);
