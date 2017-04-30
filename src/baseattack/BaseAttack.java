@@ -33,15 +33,31 @@ import javafx.stage.Stage;
 /**
  *
  * @author Michael Hodges
- *
- * @todo This is really in no particular order, feel free to add Add rendering
- * method to player objects Add AI Add Minion logic ranged melee Add
- * functionality to pause menu ability to access it, write current game state to
- * file, audio settings buttons for all the above Add sound effects explosions
- * pew pew laser sounds space melee sound? music Add VFX hit
- * indicator(smallExplosion) minion death explosions minion death pieces that
- * fly out Add very light third cloud effect over everything?
- * @bugs None yet
+ * 
+ * @todo
+ *      This is really in no particular order, feel free to add
+ *      Add rendering method to player objects
+ *      Add AI
+ *      Add Minion logic
+ *          ranged
+ *          melee
+ *      Add functionality to pause menu
+ *          ability to access it
+ *          write current game state to file
+ *          audio settings
+ *          buttons for all the above
+ *      Add sound effects
+ *          explosions
+ *          pew pew laser sounds
+ *          space melee sound?
+ *          music
+ *      Add VFX
+ *          hit indicator (smallExplosion)
+ *          minion death explosions
+ *          minion death pieces that fly out
+ *      Add very light third cloud effect over everything?
+ * @bugs
+ *      None yet
  */
 public class BaseAttack extends Application {
 
