@@ -142,10 +142,11 @@ public class BaseAttack extends Application {
                 try {
                     FileWriter gameLog = new FileWriter("game_log.txt");
                     Date date = new Date();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy hh:mm:ss");
                     String myDate = dateFormat.format(date);
-                    BufferedWriter out = new BufferedWriter(gameLog);
-                    out.write(myDate);
+                    try (BufferedWriter out = new BufferedWriter(gameLog)) {
+                        out.write("Game started: " + myDate);
+                    } 
 
                 } catch (IOException ex) {
                     Logger.getLogger(BaseAttack.class.getName()).log(Level.SEVERE, null, ex);
