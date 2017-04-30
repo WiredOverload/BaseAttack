@@ -32,9 +32,9 @@ public class Base {
         this.x = x;
         this.y = y;
         if(direction == false)
-            image = new Image("Assets/base2.png");
+            image = new Image("Assets/blue_base.png");
         else
-            image = new Image("Assets/base1.png");
+            image = new Image("Assets/red_base.png");
     }
 
     public int getHealth() {
