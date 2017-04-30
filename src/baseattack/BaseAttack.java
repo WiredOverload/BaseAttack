@@ -6,6 +6,13 @@
  */
 package baseattack;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -26,37 +33,16 @@ import javafx.stage.Stage;
 /**
  *
  * @author Michael Hodges
- * 
- * @todo
- *      This is really in no particular order, feel free to add
- *      Add rendering method to player objects
- *      Add buttons to gameplay
- *          spawn minion button x3
- *          upgrade button
- *          pause menu button
- *      Add AI
- *      Add Minion logic
- *          ranged
- *          melee
- *      Add logging of user and time to a log file whenever game starts
- *      Add functionality to pause menu
- *          ability to access it
- *          write current game state to file
- *          audio settings
- *          buttons for all the above
- *      Add sound effects
- *          explosions
- *          pew pew laser sounds
- *          space melee sound?
- *          music
- *      Add VFX
- *          hit indicator (smallExplosion)
- *          minion death explosions
- *          minion death pieces that fly out
- *      Add base artwork
- *      Add very light third cloud effect over everything?
- * @bugs
- *      None yet
+ *
+ * @todo This is really in no particular order, feel free to add Add rendering
+ * method to player objects 
+ * Add AI Add Minion logic ranged melee 
+ * Add functionality to pause menu ability to access it, write current game state to
+ * file, audio settings buttons for all the above 
+ * Add sound effects explosions pew pew laser sounds space melee sound? music 
+ * Add VFX hit indicator(smallExplosion) minion death explosions minion death pieces that fly out 
+ * Add very light third cloud effect over everything?
+ * @bugs None yet
  */
 public class BaseAttack extends Application {
 
@@ -68,12 +54,42 @@ public class BaseAttack extends Application {
         Image spaceClouds720v1 = new Image("Assets/spaceClouds720.png");//clouds right side up
         Image spaceClouds720v2 = new Image("Assets/spaceClouds720v2.png");//clouds upside down
 
-        //Added some style to button 
+        //Added all buttons we needed
         Button btn = new Button();
         btn.setText("Start Game");
         btn.setFont(Font.font("Impact", 50));
         btn.setStyle("-fx-text-fill: black; -fx-background-color: red;");
         btn.setTranslateY(40);
+
+        Button mbtn = new Button();
+        mbtn.setText("Ranged Ship");
+        mbtn.setFont(Font.font("Impact"));
+        mbtn.setTranslateX(200);
+        mbtn.setTranslateY(-330);
+
+        Button mbtn2 = new Button();
+        mbtn2.setText("Tank Ship");
+        mbtn2.setFont(Font.font("Impact"));
+        mbtn2.setTranslateX(300);
+        mbtn2.setTranslateY(-330);
+
+        Button mbtn3 = new Button();
+        mbtn3.setText("Normal Ship");
+        mbtn3.setFont(Font.font("Impact"));
+        mbtn3.setTranslateX(400);
+        mbtn3.setTranslateY(-330);
+
+        Button ubtn = new Button();
+        ubtn.setText("Upgrade Base");
+        ubtn.setFont(Font.font("Impact"));
+        ubtn.setTranslateX(540);
+        ubtn.setTranslateY(-330);
+
+        Button pbtn = new Button();
+        pbtn.setText("Pause Game");
+        pbtn.setFont(Font.font("Impact"));
+        pbtn.setTranslateX(400);
+        pbtn.setTranslateY(330);
 
         //Added title to main menu and added style
         Text title = new Text();
@@ -91,6 +107,12 @@ public class BaseAttack extends Application {
         root1.getChildren().add(btn);
         root1.getChildren().add(title);
 
+        root2.getChildren().add(mbtn);
+        root2.getChildren().add(mbtn2);
+        root2.getChildren().add(mbtn3);
+        root2.getChildren().add(pbtn);
+        root2.getChildren().add(ubtn);
+
         Scene scene1 = new Scene(root1, 1280, 720);//title screen
         Scene scene2 = new Scene(root2, 1280, 720);//gameplay
         Scene scene3 = new Scene(root3, 1280, 720);//pause menu
@@ -106,8 +128,9 @@ public class BaseAttack extends Application {
         root2.getChildren().add(canvas2);
         Canvas canvas3 = new Canvas(1280, 720);
         root3.getChildren().add(canvas3);
-        
+
         canvas1.toBack();
+        canvas2.toBack();
         GraphicsContext gc = canvas1.getGraphicsContext2D();
         GraphicsContext gc2 = canvas2.getGraphicsContext2D();
         GraphicsContext gc3 = canvas3.getGraphicsContext2D();
@@ -117,6 +140,25 @@ public class BaseAttack extends Application {
             @Override
             public void handle(ActionEvent event) {
                 primaryStage.setScene(scene2);
+                try {
+                    FileWriter gameLog = new FileWriter("game_log.txt");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+                    Date date = new Date();
+                    BufferedWriter out = new BufferedWriter(gameLog);
+                    out.write("");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(BaseAttack.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        });
+
+        pbtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                primaryStage.setScene(scene3);
             }
         });
 
@@ -136,18 +178,16 @@ public class BaseAttack extends Application {
                     gc.drawImage(spaceClouds720v1, (cloudTimer % 2560) - 2560, 0);
                     gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                     gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
-                }
-                else if (primaryStage.getScene() == scene2) {
+                } else if (primaryStage.getScene() == scene2) {
                     gc2.drawImage(spaceBase720, 0, 0);
                     gc2.drawImage(spaceClouds720v1, cloudTimer % 2560, 0);
                     gc2.drawImage(spaceClouds720v1, (cloudTimer % 2560) - 2560, 0);
                     gc2.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                     gc2.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
-                    
+
                     p1.render(gc2);
                     p2.render(gc2);
-                }
-                else{
+                } else {
                     gc3.drawImage(spaceBase720, 0, 0);
                     gc3.drawImage(spaceClouds720v1, cloudTimer % 2560, 0);
                     gc3.drawImage(spaceClouds720v1, (cloudTimer % 2560) - 2560, 0);
