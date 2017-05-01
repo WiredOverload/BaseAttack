@@ -55,9 +55,13 @@ import javafx.stage.Stage;
  *          hit indicator (smallExplosion)
  *          minion death explosions
  *          minion death pieces that fly out
+ *      Add win/lose condition
+ *      Add functionality to spawning buttons
  *      Add very light third cloud effect over everything?
  * @bugs
- *      indexOutOfBounds exception any time a base dies, but it somehow doesn't seem to matter
+ *      indexOutOfBounds exception any time a base dies
+ *          Player object line 80
+ *          game doesn't actually crash though
  */
 public class BaseAttack extends Application {
 
