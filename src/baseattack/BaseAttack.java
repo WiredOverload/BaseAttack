@@ -67,6 +67,10 @@ public class BaseAttack extends Application {
     public void start(Stage primaryStage) {
         Player p1 = new Player(false, 100, 0); //user player
         Player p2 = new Player(true, 100, 0);//AI player
+        
+        p1.getBases().get(0).getMinions().add(new Minion(1, false));//just for testing
+        p2.getBases().get(0).getMinions().add(new Minion(1, true));//just for testing
+        
         Image spaceBase720 = new Image("Assets/spaceBase720.png");//background stars
         Image spaceClouds720v1 = new Image("Assets/spaceClouds720.png");//clouds right side up
         Image spaceClouds720v2 = new Image("Assets/spaceClouds720v2.png");//clouds upside down
@@ -209,7 +213,8 @@ public class BaseAttack extends Application {
                     gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                     gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
                 } else if (primaryStage.getScene() == scene2) {
-                    p1.update();
+                    p1.update(p2);
+                    p2.update(p1);//need to fit AI here
                     
                     gc2.drawImage(spaceBase720, 0, 0);
                     gc2.drawImage(spaceClouds720v1, cloudTimer % 2560, 0);

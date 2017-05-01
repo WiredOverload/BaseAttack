@@ -45,7 +45,7 @@ public class Player {
         return income;
     }
 
-    public ArrayList getBases() {
+    public ArrayList<Base> getBases() {
         return bases;
     }
 
@@ -70,9 +70,11 @@ public class Player {
     }
 
     //actual update code
-    public void update() {
+    public void update(Player enemy) {
         money += income;
-        
+        for(int i = 0; i < bases.size(); i++) {
+            bases.get(i).update(enemy.getBases().get(i));
+        }
     }
     
     public void render(GraphicsContext gc) {

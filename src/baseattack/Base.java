@@ -41,7 +41,7 @@ public class Base {
         return health;
     }
 
-    public ArrayList getMinions() {
+    public ArrayList<Minion> getMinions() {
         return minions;
     }
 
@@ -51,6 +51,10 @@ public class Base {
 
     public int getY() {
         return y;
+    }
+
+    public Boolean getDirection() {
+        return direction;
     }
 
     
@@ -71,8 +75,13 @@ public class Base {
     }
     
 
-    public void update() {
-        
+    public void update(Base enemy) {
+        for(int i = 0; i < minions.size(); i++) {
+            if(minions.get(i).getHealth() < 0)
+                minions.remove(i);
+            else
+                minions.get(i).update(enemy);
+        }
     }
     
     public void render(GraphicsContext gc) {
