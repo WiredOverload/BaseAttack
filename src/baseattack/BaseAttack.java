@@ -36,13 +36,11 @@ import javafx.stage.Stage;
  * 
  * @todo
  *      This is really in no particular order, feel free to add
- *      Add rotation to rendering
  *      Add AI
  *      Add more buttons, 4 to each base
  *      Add main button functionality
  *      Add Minion logic
  *          ranged
- *          melee
  *      Add functionality to pause menu
  *          ability to access it
  *          write current game state to file
@@ -59,14 +57,14 @@ import javafx.stage.Stage;
  *          minion death pieces that fly out
  *      Add very light third cloud effect over everything?
  * @bugs
- *      None yet
+ *      indexOutOfBounds exception any time a base dies, but it somehow doesn't seem to matter
  */
 public class BaseAttack extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Player p1 = new Player(false, 100, 0); //user player
-        Player p2 = new Player(true, 100, 0);//AI player
+        Player p1 = new Player(false, 300, 0); //user player
+        Player p2 = new Player(true, 300, 0);//AI player
         
         p1.getBases().get(0).getMinions().add(new Minion(1, false));//just for testing
         p2.getBases().get(0).getMinions().add(new Minion(1, true));//just for testing

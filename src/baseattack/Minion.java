@@ -6,8 +6,11 @@
  */
 package baseattack;
 
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 /**
  * Assignment: Author: Cumulative completion time:
@@ -27,23 +30,52 @@ public class Minion {
     private Image image; //sprite for the minion
 
     public Minion(int type, boolean direction) {
+        //necesary rotation stuff
+        ImageView iv;
+        SnapshotParameters params;
+        //switch for ship type
         switch (type) {
             case 1://normal ship
-                image = new Image("Assets/medium1.png");
+                //rotation logic
+                iv = new ImageView(new Image("Assets/medium1.png"));
+                if (direction) {
+                    iv.setRotate(-90);
+                } else {
+                    iv.setRotate(90);
+                }
+                params = new SnapshotParameters();
+                params.setFill(Color.TRANSPARENT);
+                image = iv.snapshot(params, null);
                 health = 100;
                 speed = 2;
                 meleeAttack = 20;
                 rangedAttack = 0;
                 break;
             case 2://tank ship
-                image = new Image("Assets/medium2.png");
+                iv = new ImageView(new Image("Assets/medium1.png"));
+                if (direction) {
+                    iv.setRotate(-90);
+                } else {
+                    iv.setRotate(90);
+                }
+                params = new SnapshotParameters();
+                params.setFill(Color.TRANSPARENT);
+                image = iv.snapshot(params, null);
                 health = 350;
                 speed = 1;
                 meleeAttack = 40;
                 rangedAttack = 0;
                 break;
             case 3://ranged ship
-                image = new Image("Assets/medium3.png");
+                iv = new ImageView(new Image("Assets/medium1.png"));
+                if (direction) {
+                    iv.setRotate(-90);
+                } else {
+                    iv.setRotate(90);
+                }
+                params = new SnapshotParameters();
+                params.setFill(Color.TRANSPARENT);
+                image = iv.snapshot(params, null);
                 health = 80;
                 speed = 2;
                 meleeAttack = 10;
@@ -51,10 +83,11 @@ public class Minion {
                 break;
         }
         cooldown = 0;
-        if(direction)
+        if (direction) {
             x = 1280 - 64;
-        else
+        } else {
             x = 0 + 64;
+        }
     }
 
     public int getHealth() {
@@ -128,20 +161,30 @@ public class Minion {
             }
         }
         if (enemy.getDirection() == true) {
-            if(cooldown > 0) {
+            if (enemy.getX() - x < 64 + 32) {
+                cooldown = 10;//change this to change attacking speed
+                enemy.setHealth(enemy.getHealth() - meleeAttack);
+            }
+        } else if (enemy.getDirection() == false) {
+            if (x - enemy.getX() < 64 + 32) {
+                cooldown = 10;//change this to change attacking speed
+                enemy.setHealth(enemy.getHealth() - meleeAttack);
+            }
+        }
+        if (enemy.getDirection() == true) {
+            if (cooldown > 0) {
                 x -= speed / 2;//change this to change reversing speed
                 cooldown--;
-            }
-            else
+            } else {
                 x += speed;
-        }
-        else if (enemy.getDirection() == false) {
-            if(cooldown > 0) {
+            }
+        } else if (enemy.getDirection() == false) {
+            if (cooldown > 0) {
                 x += speed / 2;//change this to change reversing speed
                 cooldown--;
-            }
-            else
+            } else {
                 x -= speed;
+            }
         }
     }
 

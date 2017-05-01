@@ -77,7 +77,7 @@ public class Base {
 
     public void update(Base enemy) {
         for(int i = 0; i < minions.size(); i++) {
-            if(minions.get(i).getHealth() < 0)
+            if(minions.get(i).getHealth() < 1)
                 minions.remove(i);
             else
                 minions.get(i).update(enemy);
