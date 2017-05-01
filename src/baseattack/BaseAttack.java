@@ -161,6 +161,7 @@ public class BaseAttack extends Application {
         GraphicsContext gc2 = canvas2.getGraphicsContext2D();
         GraphicsContext gc3 = canvas3.getGraphicsContext2D();
 
+        //start button
         btn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -182,6 +183,7 @@ public class BaseAttack extends Application {
             }
         });
 
+        //pause button
         pbtn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -196,9 +198,7 @@ public class BaseAttack extends Application {
 
             public void handle(long currentNanoTime) {
                 //actual gameloop code goes here
-                tick++; //tick isn't really necessary anymore as we have switched from
-                //time based movement to coordinate movement
-                p1.update();
+                tick++;
                 //money update
                 money.setText(Integer.toString(p1.getMoney()));
                 //not strictly necessary to check scene, but should be more efficient than drawing 2x more than needed
@@ -209,6 +209,8 @@ public class BaseAttack extends Application {
                     gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                     gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
                 } else if (primaryStage.getScene() == scene2) {
+                    p1.update();
+                    
                     gc2.drawImage(spaceBase720, 0, 0);
                     gc2.drawImage(spaceClouds720v1, cloudTimer % 2560, 0);
                     gc2.drawImage(spaceClouds720v1, (cloudTimer % 2560) - 2560, 0);
