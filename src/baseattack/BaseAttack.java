@@ -36,11 +36,11 @@ import javafx.stage.Stage;
  * 
  * @todo
  *      This is really in no particular order, feel free to add
- *      Add rendering method to player objects
  *      Add AI
+ *      Add more buttons, 4 to each base
+ *      Add main button functionality
  *      Add Minion logic
  *          ranged
- *          melee
  *      Add functionality to pause menu
  *          ability to access it
  *          write current game state to file
@@ -55,16 +55,24 @@ import javafx.stage.Stage;
  *          hit indicator (smallExplosion)
  *          minion death explosions
  *          minion death pieces that fly out
+ *      Add win/lose condition
+ *      Add functionality to spawning buttons
  *      Add very light third cloud effect over everything?
  * @bugs
- *      None yet
+ *      indexOutOfBounds exception any time a base dies
+ *          Player object line 80
+ *          game doesn't actually crash though
  */
 public class BaseAttack extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Player p1 = new Player(false, 100, 0); //user player
-        Player p2 = new Player(true, 100, 0);//AI player
+        Player p1 = new Player(false, 300, 0); //user player
+        Player p2 = new Player(true, 300, 0);//AI player
+        
+        p1.getBases().get(0).getMinions().add(new Minion(1, false));//just for testing
+        p2.getBases().get(0).getMinions().add(new Minion(1, true));//just for testing
+        
         Image spaceBase720 = new Image("Assets/spaceBase720.png");//background stars
         Image spaceClouds720v1 = new Image("Assets/spaceClouds720.png");//clouds right side up
         Image spaceClouds720v2 = new Image("Assets/spaceClouds720v2.png");//clouds upside down
@@ -113,6 +121,14 @@ public class BaseAttack extends Application {
         title.setStroke(Color.RED);
         title.setFill(Color.BLACK);
         title.setTranslateY(-80);
+        
+        //money bar for gameplay
+        Text money = new Text();
+        money.setText("0");
+        money.setFont(Font.font("Impact", 80));
+        money.setStroke(Color.RED);
+        money.setFill(Color.BLACK);
+        money.setTranslateY(-320);
 
         //turns out each scene needs its own root
         StackPane root1 = new StackPane();//for title screen
@@ -127,6 +143,7 @@ public class BaseAttack extends Application {
         root2.getChildren().add(mbtn3);
         root2.getChildren().add(pbtn);
         root2.getChildren().add(ubtn);
+        root2.getChildren().add(money);
 
         Scene scene1 = new Scene(root1, 1280, 720);//title screen
         Scene scene2 = new Scene(root2, 1280, 720);//gameplay
@@ -150,6 +167,7 @@ public class BaseAttack extends Application {
         GraphicsContext gc2 = canvas2.getGraphicsContext2D();
         GraphicsContext gc3 = canvas3.getGraphicsContext2D();
 
+        //start button
         btn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -171,6 +189,7 @@ public class BaseAttack extends Application {
             }
         });
 
+        //pause button
         pbtn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -185,9 +204,9 @@ public class BaseAttack extends Application {
 
             public void handle(long currentNanoTime) {
                 //actual gameloop code goes here
-                tick++; //tick isn't really necessary anymore as we have switched from
-                //time based movement to coordinate movement
-                p1.update();
+                tick++;
+                //money update
+                money.setText(Integer.toString(p1.getMoney()));
                 //not strictly necessary to check scene, but should be more efficient than drawing 2x more than needed
                 if (primaryStage.getScene() == scene1) {
                     gc.drawImage(spaceBase720, 0, 0);
@@ -196,6 +215,9 @@ public class BaseAttack extends Application {
                     gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                     gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
                 } else if (primaryStage.getScene() == scene2) {
+                    p1.update(p2);
+                    p2.update(p1);//need to fit AI here
+                    
                     gc2.drawImage(spaceBase720, 0, 0);
                     gc2.drawImage(spaceClouds720v1, cloudTimer % 2560, 0);
                     gc2.drawImage(spaceClouds720v1, (cloudTimer % 2560) - 2560, 0);
