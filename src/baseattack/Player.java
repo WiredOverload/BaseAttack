@@ -29,11 +29,12 @@ public class Player {
         this.direction = direction;
         this.money = money;
         this.income = 10;
-        for(int i = 0; i < 5; i++) {//this is assuming bases are 64x64 pixels large, change as needed
-            if(direction == false)
-                bases.add(new Base(direction, health, 64, (128*i) + 64));
-            else
-                bases.add(new Base(direction, health, 1280 - 64, (128*i) + 64));
+        for (int i = 0; i < 5; i++) {//this is assuming bases are 64x64 pixels large, change as needed
+            if (direction == false) {
+                bases.add(new Base(direction, health, 64, (128 * i) + 64));
+            } else {
+                bases.add(new Base(direction, health, 1280 - 64, (128 * i) + 64));
+            }
         }
     }
 
@@ -45,7 +46,7 @@ public class Player {
         return income;
     }
 
-    public ArrayList getBases() {
+    public ArrayList<Base> getBases() {
         return bases;
     }
 
@@ -70,13 +71,30 @@ public class Player {
     }
 
     //actual update code
-    public void update() {
+    public void update(Player enemy) {
         money += income;
-        
+        for (int i = 0; i < bases.size(); i++) {
+            if (bases.get(i).getHealth() < 1) {
+                bases.remove(i);
+                for (int j = 0; i < bases.size(); j++) {//this is assuming bases are 64x64 pixels large, change as needed
+                    bases.get(j).setY((128 * j) + 64);
+                }
+                break;//only one base can be removed per tick, else indexOutOfBounds
+            }
+        }
+        if (bases.size() < enemy.getBases().size()) {
+            for (int i = 0; i < bases.size(); i++) {
+                bases.get(i).update(enemy.getBases().get(i));
+            }
+        } else {
+            for (int i = 0; i < enemy.getBases().size(); i++) {
+                bases.get(i).update(enemy.getBases().get(i));
+            }
+        }
     }
-    
+
     public void render(GraphicsContext gc) {
-        for(int i = 0; i < bases.size(); i++) {
+        for (int i = 0; i < bases.size(); i++) {
             bases.get(i).render(gc);
         }
     }
