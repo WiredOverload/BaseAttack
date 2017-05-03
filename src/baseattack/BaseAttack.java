@@ -36,9 +36,10 @@ import javafx.stage.Stage;
  * 
  * @todo
  *      This is really in no particular order, feel free to add
- *      Add AI
  *      Add more buttons, 4 to each base
  *      Add main button functionality
+ *      Add price text to buttons
+ *      Add Health bar
  *      Add Minion logic
  *          ranged
  *      Add functionality to pause menu
@@ -69,9 +70,6 @@ public class BaseAttack extends Application {
     public void start(Stage primaryStage) {
         Player p1 = new Player(false, 300, 0); //user player
         Player p2 = new Player(true, 300, 0);//AI player
-        
-        p1.getBases().get(0).getMinions().add(new Minion(1, false));//just for testing
-        p2.getBases().get(0).getMinions().add(new Minion(1, true));//just for testing
         
         Image spaceBase720 = new Image("Assets/spaceBase720.png");//background stars
         Image spaceClouds720v1 = new Image("Assets/spaceClouds720.png");//clouds right side up
@@ -201,6 +199,8 @@ public class BaseAttack extends Application {
         new AnimationTimer() {
             int tick = 0;
             int cloudTimer = 0;
+            int choice = 0;
+            int choice2 = 0;//just for testing
 
             public void handle(long currentNanoTime) {
                 //actual gameloop code goes here
@@ -215,8 +215,10 @@ public class BaseAttack extends Application {
                     gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                     gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
                 } else if (primaryStage.getScene() == scene2) {
+                    choice2 = aiUpdate(p1, choice2);//just for testing
                     p1.update(p2);
-                    p2.update(p1);//need to fit AI here
+                    choice = aiUpdate(p2, choice);
+                    p2.update(p1);
                     
                     gc2.drawImage(spaceBase720, 0, 0);
                     gc2.drawImage(spaceClouds720v1, cloudTimer % 2560, 0);
@@ -251,4 +253,43 @@ public class BaseAttack extends Application {
         launch(args);
     }
 
+    public static int aiUpdate(Player player, int choice) {
+        if(player.getMoney() >= choice) {
+            switch(choice) {
+                case 100:
+                    player.getBases().get((int)(Math.random() * player.getBases().size())).getMinions().add(new Minion(0, player.getDirection()));
+                    player.setMoney(player.getMoney() - 100);
+                    break;
+                case 300:
+                    player.getBases().get((int)(Math.random() * player.getBases().size())).getMinions().add(new Minion(1, player.getDirection()));
+                    player.setMoney(player.getMoney() - 300);
+                    break;
+                case 1000:
+                    player.getBases().get((int)(Math.random() * player.getBases().size())).getMinions().add(new Minion(2, player.getDirection()));
+                    player.setMoney(player.getMoney() - 1000);
+                    break;
+            }
+            choice = (int)(Math.random() * 3);
+            switch(choice) {
+                case 0:
+                    return(100);
+                case 1:
+                    return(300);
+                case 2:
+                    return(1000);
+            }
+        }
+        else if(choice == 0){
+            choice = (int)(Math.random() * 3);
+            switch(choice) {
+                case 0:
+                    return(100);
+                case 1:
+                    return(300);
+                case 2:
+                    return(1000);
+            }
+        }
+        return choice;
+    }
 }
