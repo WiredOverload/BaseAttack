@@ -91,6 +91,7 @@ public class Minion {
         } else {
             x = 0 + 64;
         }
+        ping.setVolume(.25);
     }
 
     public int getHealth() {

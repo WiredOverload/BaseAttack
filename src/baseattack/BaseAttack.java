@@ -73,6 +73,15 @@ public class BaseAttack extends Application {
         Image spaceBase720 = new Image("Assets/spaceBase720.png");//background stars
         Image spaceClouds720v1 = new Image("Assets/spaceClouds720.png");//clouds right side up
         Image spaceClouds720v2 = new Image("Assets/spaceClouds720v2.png");//clouds upside down
+        
+        //music logic
+        Media music;
+        if((int)(Math.random() * 2) == 0)
+            music = new Media(new File("BigBang.mp3").toURI().toString());
+        else
+            music = new Media(new File("FallingWithStyle.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(music);
+        mediaPlayer.play();
 
         //Added all buttons we needed put in VBox for layout
         Button btn = new Button();
@@ -162,16 +171,22 @@ public class BaseAttack extends Application {
         vBox5.setTranslateY(575);
 
         Button ubtn = new Button();
-        ubtn.setText("Upgrade Base");
+        ubtn.setText("Upgrade Bases");
         ubtn.setFont(Font.font("Impact"));
         ubtn.setTranslateX(-540);
         ubtn.setTranslateY(-330);
 
-        Button pbtn = new Button();
+        Button pbtn = new Button();//pause button
         pbtn.setText("Pause Game");
         pbtn.setFont(Font.font("Impact"));
         pbtn.setTranslateX(-400);
         pbtn.setTranslateY(330);
+        
+        Button pbtn2 = new Button();//back to game button
+        pbtn2.setText("Back To Game");
+        pbtn2.setFont(Font.font("Impact"));
+        pbtn2.setTranslateX(0);
+        pbtn2.setTranslateY(330);
         
         Text audio = new Text();
         audio.setText("Audio");
@@ -179,20 +194,26 @@ public class BaseAttack extends Application {
         audio.setStroke(Color.RED);
         audio.setFill(Color.BLACK);
         audio.setTranslateX(10);
-        audio.setTranslateY(100);
+        audio.setTranslateY(-75);
         
-        Button on = new Button(); 
-        on.setText("ON"); 
-        on.setFont(Font.font("Impact", 20));
+        Button mute = new Button();//back to game button
+        mute.setText("Mute");
+        mute.setFont(Font.font("Impact"));
+        mute.setTranslateX(0);
+        mute.setTranslateY(0);
         
-        Button off = new Button(); 
-        off.setText("OFF"); 
-        off.setFont(Font.font("Impact", 20));
+        //Button on = new Button();
+        //on.setText("ON"); 
+        //on.setFont(Font.font("Impact", 20));
         
-        VBox vBox6 = new VBox(on, off);
-        vBox6.setTranslateX(625);
-        vBox6.setTranslateY(500);
-        vBox6.setSpacing(5);
+        //Button off = new Button();
+        //off.setText("OFF"); 
+        //off.setFont(Font.font("Impact", 20));
+        
+        //VBox vBox6 = new VBox(on, off);
+        //vBox6.setTranslateX(625);
+        //vBox6.setTranslateY(500);
+        //vBox6.setSpacing(5);
 
         //Added title to main menu and added style
         Text title = new Text();
@@ -236,8 +257,9 @@ public class BaseAttack extends Application {
         root2.getChildren().add(money);
        
         
-        root3.getChildren().add(vBox6);
+        root3.getChildren().add(mute);
         root3.getChildren().add(audio);
+        root3.getChildren().add(pbtn2);
 
         root2.getChildren().add(gameEnd);
 
@@ -295,6 +317,44 @@ public class BaseAttack extends Application {
             @Override
             public void handle(ActionEvent event) {
                 primaryStage.setScene(scene3);
+            }
+        });
+        
+        //back to game button
+        pbtn2.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                primaryStage.setScene(scene2);
+            }
+        });
+        
+        //mute button
+        mute.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if (mediaPlayer.isMute()) {
+                        mediaPlayer.setMute(false);
+                    } else {
+                        mediaPlayer.setMute(true);
+                    }
+            }
+        });
+        
+        //upgrade button
+        ubtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if (p1.getMoney() > 5000) {
+                    p1.setIncome(p1.getIncome() + (p1.getIncome()/3));
+                    for(int i = 0; i < p1.getBases().size(); i++) {
+                        p1.getBases().get(i).setHealth(p1.getBases().get(i).getHealth() + (p1.getBases().get(i).getHealth()/3));
+                    }
+                    p1.setMoney(p1.getMoney() - 5000);
+
+                }
             }
         });
 
@@ -479,14 +539,7 @@ public class BaseAttack extends Application {
             }
         });
         
-        //music logic
-        Media music;
-        if((int)(Math.random() * 2) == 0)
-            music = new Media(new File("BigBang.mp3").toURI().toString());
-        else
-            music = new Media(new File("FallingWithStyle.mp3").toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(music);
-        mediaPlayer.play();
+        
 
         new AnimationTimer() {
             int tick = 0;
