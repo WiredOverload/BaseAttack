@@ -250,6 +250,8 @@ public class BaseAttack extends Application {
                     String myDate = dateFormat.format(date);
                     try (BufferedWriter out = new BufferedWriter(gameLog)) {
                         out.write("Game started: " + myDate);
+                        out.newLine();
+                        out.close();
                     }
 
                 } catch (IOException ex) {
@@ -474,6 +476,8 @@ public class BaseAttack extends Application {
                             gameLog = new FileWriter("game_log.txt", true);
                             BufferedWriter out = new BufferedWriter(gameLog);
                             out.write("Game ended in victory!");
+                            out.newLine();
+                            out.close();
                         } catch (IOException ex) {
                             Logger.getLogger(BaseAttack.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -485,6 +489,8 @@ public class BaseAttack extends Application {
                             gameLog = new FileWriter("game_log.txt", true);
                             BufferedWriter out = new BufferedWriter(gameLog);
                             out.write("Game ended in failure!");
+                            out.newLine();
+                            out.close();
                         } catch (IOException ex) {
                             Logger.getLogger(BaseAttack.class.getName()).log(Level.SEVERE, null, ex);
                         }
