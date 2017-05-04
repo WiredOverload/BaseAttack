@@ -7,6 +7,7 @@
 package baseattack;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -187,6 +190,13 @@ public class BaseAttack extends Application {
         money.setStroke(Color.RED);
         money.setFill(Color.BLACK);
         money.setTranslateY(-320);
+        
+        //Victory or Defeat text
+        Text gameEnd = new Text();
+        gameEnd.setText("");
+        gameEnd.setFont(Font.font("Impact", 80));
+        gameEnd.setStroke(Color.RED);
+        gameEnd.setFill(Color.BLACK);
 
         //turns out each scene needs its own root
         StackPane root1 = new StackPane();//for title screen
@@ -205,6 +215,7 @@ public class BaseAttack extends Application {
         root2.getChildren().add(pbtn);
         root2.getChildren().add(ubtn);
         root2.getChildren().add(money);
+        root2.getChildren().add(gameEnd);
 
         Scene scene1 = new Scene(root1, 1280, 720);//title screen
         Scene scene2 = new Scene(root2, 1280, 720);//gameplay
@@ -236,12 +247,14 @@ public class BaseAttack extends Application {
             public void handle(ActionEvent event) {
                 primaryStage.setScene(scene2);
                 try {
-                    FileWriter gameLog = new FileWriter("game_log.txt");
+                    FileWriter gameLog = new FileWriter("game_log.txt", true);
                     Date date = new Date();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy hh:mm:ss");
                     String myDate = dateFormat.format(date);
                     try (BufferedWriter out = new BufferedWriter(gameLog)) {
                         out.write("Game started: " + myDate);
+                        out.newLine();
+                        out.close();
                     }
 
                 } catch (IOException ex) {
@@ -440,6 +453,15 @@ public class BaseAttack extends Application {
                 }
             }
         });
+        
+        //music logic
+        Media music;
+        if((int)(Math.random() * 2) == 0)
+            music = new Media(new File("BigBang.mp3").toURI().toString());
+        else
+            music = new Media(new File("FallingWithStyle.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(music);
+        mediaPlayer.play();
 
         new AnimationTimer() {
             int tick = 0;
@@ -459,6 +481,33 @@ public class BaseAttack extends Application {
                     gc.drawImage(spaceClouds720v2, cloudTimer / 2, 0);
                     gc.drawImage(spaceClouds720v2, (cloudTimer / 2) - 2560, 0);
                 } else if (primaryStage.getScene() == scene2) {
+                    if(p2.getBases().size() == 0) {
+                        gameEnd.setText("Victory!");
+                        FileWriter gameLog;
+                        try {
+                            gameLog = new FileWriter("game_log.txt", true);
+                            BufferedWriter out = new BufferedWriter(gameLog);
+                            out.write("Game ended in victory!");
+                            out.newLine();
+                            out.close();
+                        } catch (IOException ex) {
+                            Logger.getLogger(BaseAttack.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        stop();
+                    } else if(p1.getBases().size() == 0) {
+                        gameEnd.setText("Defeat!");
+                        FileWriter gameLog;
+                        try {
+                            gameLog = new FileWriter("game_log.txt", true);
+                            BufferedWriter out = new BufferedWriter(gameLog);
+                            out.write("Game ended in failure!");
+                            out.newLine();
+                            out.close();
+                        } catch (IOException ex) {
+                            Logger.getLogger(BaseAttack.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        stop();
+                    }
                     p1.update(p2);
                     choice = aiUpdate(p2, choice);
                     p2.update(p1);
