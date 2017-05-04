@@ -35,7 +35,7 @@ public class Minion {
         SnapshotParameters params;
         //switch for ship type
         switch (type) {
-            case 1://normal ship
+            case 0://normal ship
                 //rotation logic
                 iv = new ImageView(new Image("Assets/medium1.png"));
                 if (direction) {
@@ -51,8 +51,8 @@ public class Minion {
                 meleeAttack = 20;
                 rangedAttack = 0;
                 break;
-            case 2://tank ship
-                iv = new ImageView(new Image("Assets/medium1.png"));
+            case 1://tank ship
+                iv = new ImageView(new Image("Assets/medium2.png"));
                 if (direction) {
                     iv.setRotate(-90);
                 } else {
@@ -66,8 +66,8 @@ public class Minion {
                 meleeAttack = 40;
                 rangedAttack = 0;
                 break;
-            case 3://ranged ship
-                iv = new ImageView(new Image("Assets/medium1.png"));
+            case 2://ranged ship
+                iv = new ImageView(new Image("Assets/medium3.png"));
                 if (direction) {
                     iv.setRotate(-90);
                 } else {
