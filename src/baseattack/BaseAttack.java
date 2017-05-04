@@ -234,6 +234,13 @@ public class BaseAttack extends Application {
         root2.getChildren().add(pbtn);
         root2.getChildren().add(ubtn);
         root2.getChildren().add(money);
+       
+        
+        root3.getChildren().add(vBox6);
+        root3.getChildren().add(audio);
+
+        root2.getChildren().add(gameEnd);
+
       
         Scene scene1 = new Scene(root1, 1280, 720);//title screen
         Scene scene2 = new Scene(root2, 1280, 720);//gameplay
