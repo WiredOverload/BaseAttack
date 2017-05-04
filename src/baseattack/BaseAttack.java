@@ -171,7 +171,7 @@ public class BaseAttack extends Application {
         vBox5.setTranslateY(575);
 
         Button ubtn = new Button();
-        ubtn.setText("Upgrade Base");
+        ubtn.setText("Upgrade Bases");
         ubtn.setFont(Font.font("Impact"));
         ubtn.setTranslateX(-540);
         ubtn.setTranslateY(-330);
@@ -339,6 +339,22 @@ public class BaseAttack extends Application {
                     } else {
                         mediaPlayer.setMute(true);
                     }
+            }
+        });
+        
+        //upgrade button
+        ubtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if (p1.getMoney() > 5000) {
+                    p1.setIncome(p1.getIncome() + (p1.getIncome()/3));
+                    for(int i = 0; i < p1.getBases().size(); i++) {
+                        p1.getBases().get(i).setHealth(p1.getBases().get(i).getHealth() + (p1.getBases().get(i).getHealth()/3));
+                    }
+                    p1.setMoney(p1.getMoney() - 5000);
+
+                }
             }
         });
 
