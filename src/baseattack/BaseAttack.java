@@ -22,6 +22,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -67,12 +68,12 @@ public class BaseAttack extends Application {
     public void start(Stage primaryStage) {
         Player p1 = new Player(false, 300, 0); //user player
         Player p2 = new Player(true, 300, 0);//AI player
-        
+
         Image spaceBase720 = new Image("Assets/spaceBase720.png");//background stars
         Image spaceClouds720v1 = new Image("Assets/spaceClouds720.png");//clouds right side up
         Image spaceClouds720v2 = new Image("Assets/spaceClouds720v2.png");//clouds upside down
 
-        //Added all buttons we needed
+        //Added all buttons we needed put in VBox for layout
         Button btn = new Button();
         btn.setText("Start Game");
         btn.setFont(Font.font("Impact", 50));
@@ -80,96 +81,84 @@ public class BaseAttack extends Application {
         btn.setTranslateY(40);
 
         Button mbtn = new Button();
-        mbtn.setText("Speed Ship");
+        mbtn.setText("Speed");
         mbtn.setFont(Font.font("Impact"));
-        mbtn.setTranslateX(-200);
-        mbtn.setTranslateY(-330);
 
         Button mbtn2 = new Button();
-        mbtn2.setText("Tank Ship");
+        mbtn2.setText("Tank");
         mbtn2.setFont(Font.font("Impact"));
-        mbtn2.setTranslateX(-300);
-        mbtn2.setTranslateY(-330);
 
         Button mbtn3 = new Button();
-        mbtn3.setText("Normal Ship");
+        mbtn3.setText("Normal");
         mbtn3.setFont(Font.font("Impact"));
-        mbtn3.setTranslateX(-400);
-        mbtn3.setTranslateY(-330);
-        
+
+        VBox vBox1 = new VBox(mbtn, mbtn2, mbtn3);
+        vBox1.setTranslateX(1);
+        vBox1.setTranslateY(55);
+
         Button mbtn4 = new Button();
-        mbtn4.setText("Speed Ship");
+        mbtn4.setText("Speed");
         mbtn4.setFont(Font.font("Impact"));
-        mbtn4.setTranslateX(-200);
-        mbtn4.setTranslateY(-215);
-        
+
         Button mbtn5 = new Button();
-        mbtn5.setText("Tank Ship");
+        mbtn5.setText("Tank");
         mbtn5.setFont(Font.font("Impact"));
-        mbtn5.setTranslateX(-300);
-        mbtn5.setTranslateY(-215);
-        
+
         Button mbtn6 = new Button();
-        mbtn6.setText("Normal Ship");
+        mbtn6.setText("Normal");
         mbtn6.setFont(Font.font("Impact"));
-        mbtn6.setTranslateX(-400);
-        mbtn6.setTranslateY(-215);
-        
+
+        VBox vBox2 = new VBox(mbtn4, mbtn5, mbtn6);
+        vBox2.setTranslateX(1);
+        vBox2.setTranslateY(185);
+
         Button mbtn7 = new Button();
-        mbtn7.setText("Speed Ship");
+        mbtn7.setText("Speed");
         mbtn7.setFont(Font.font("Impact"));
-        mbtn7.setTranslateX(-200);
-        mbtn7.setTranslateY(-85);
-        
+
         Button mbtn8 = new Button();
-        mbtn8.setText("Tank Ship");
+        mbtn8.setText("Tank");
         mbtn8.setFont(Font.font("Impact"));
-        mbtn8.setTranslateX(-300);
-        mbtn8.setTranslateY(-85);
-        
+
         Button mbtn9 = new Button();
-        mbtn9.setText("Normal Shipd");
+        mbtn9.setText("Normal");
         mbtn9.setFont(Font.font("Impact"));
-        mbtn9.setTranslateX(-400);
-        mbtn9.setTranslateY(-85);
-        
+
+        VBox vBox3 = new VBox(mbtn7, mbtn8, mbtn9);
+        vBox3.setTranslateX(1);
+        vBox3.setTranslateY(315);
+
         Button mbtn10 = new Button();
-        mbtn10.setText("Speed Ship");
+        mbtn10.setText("Speed");
         mbtn10.setFont(Font.font("Impact"));
-        mbtn10.setTranslateX(-200);
-        mbtn10.setTranslateY(45);
-        
+
         Button mbtn11 = new Button();
-        mbtn11.setText("Tank Ship");
+        mbtn11.setText("Tank");
         mbtn11.setFont(Font.font("Impact"));
-        mbtn11.setTranslateX(-300);
-        mbtn11.setTranslateY(45); 
-        
+
         Button mbtn12 = new Button();
-        mbtn12.setText("Normal Shipd");
+        mbtn12.setText("Normal");
         mbtn12.setFont(Font.font("Impact"));
-        mbtn12.setTranslateX(-400);
-        mbtn12.setTranslateY(45);
-      
+
+        VBox vBox4 = new VBox(mbtn10, mbtn11, mbtn12);
+        vBox4.setTranslateX(1);
+        vBox4.setTranslateY(445);
+
         Button mbtn13 = new Button();
-        mbtn13.setText("Speed Ship");
+        mbtn13.setText("Speed");
         mbtn13.setFont(Font.font("Impact"));
-        mbtn13.setTranslateX(-200);
-        mbtn13.setTranslateY(175);
 
         Button mbtn14 = new Button();
-        mbtn14.setText("Tank Ship");
+        mbtn14.setText("Tank");
         mbtn14.setFont(Font.font("Impact"));
-        mbtn14.setTranslateX(-300);
-        mbtn14.setTranslateY(175);
 
         Button mbtn15 = new Button();
-        mbtn15.setText("Normal Ship");
+        mbtn15.setText("Normal");
         mbtn15.setFont(Font.font("Impact"));
-        mbtn15.setTranslateX(-400);
-        mbtn15.setTranslateY(175);
 
-
+        VBox vBox5 = new VBox(mbtn13, mbtn14, mbtn15);
+        vBox5.setTranslateX(1);
+        vBox5.setTranslateY(575);
 
         Button ubtn = new Button();
         ubtn.setText("Upgrade Base");
@@ -190,7 +179,7 @@ public class BaseAttack extends Application {
         title.setStroke(Color.RED);
         title.setFill(Color.BLACK);
         title.setTranslateY(-80);
-        
+
         //money bar for gameplay
         Text money = new Text();
         money.setText("0");
@@ -207,21 +196,12 @@ public class BaseAttack extends Application {
         root1.getChildren().add(btn);
         root1.getChildren().add(title);
 
-        root2.getChildren().add(mbtn);
-        root2.getChildren().add(mbtn2);
-        root2.getChildren().add(mbtn3);
-        root2.getChildren().add(mbtn4);
-        root2.getChildren().add(mbtn5);
-        root2.getChildren().add(mbtn6);
-        root2.getChildren().add(mbtn7);
-        root2.getChildren().add(mbtn8);
-        root2.getChildren().add(mbtn9);
-        root2.getChildren().add(mbtn10);
-        root2.getChildren().add(mbtn11);
-        root2.getChildren().add(mbtn12);
-        root2.getChildren().add(mbtn13);
-        root2.getChildren().add(mbtn14);
-        root2.getChildren().add(mbtn15);
+        root2.getChildren().add(vBox1);
+        root2.getChildren().add(vBox2);
+        root2.getChildren().add(vBox3);
+        root2.getChildren().add(vBox4);
+        root2.getChildren().add(vBox5);
+
         root2.getChildren().add(pbtn);
         root2.getChildren().add(ubtn);
         root2.getChildren().add(money);
@@ -244,6 +224,7 @@ public class BaseAttack extends Application {
 
         canvas1.toBack();
         canvas2.toBack();
+        canvas3.toBack();
         GraphicsContext gc = canvas1.getGraphicsContext2D();
         GraphicsContext gc2 = canvas2.getGraphicsContext2D();
         GraphicsContext gc3 = canvas3.getGraphicsContext2D();
@@ -261,7 +242,7 @@ public class BaseAttack extends Application {
                     String myDate = dateFormat.format(date);
                     try (BufferedWriter out = new BufferedWriter(gameLog)) {
                         out.write("Game started: " + myDate);
-                    } 
+                    }
 
                 } catch (IOException ex) {
                     Logger.getLogger(BaseAttack.class.getName()).log(Level.SEVERE, null, ex);
@@ -278,20 +259,20 @@ public class BaseAttack extends Application {
                 primaryStage.setScene(scene3);
             }
         });
-        
+
         //All buttons to spawn ships 
         mbtn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                if(p1.getMoney() > 5000) {
-                   p1.getBases().get(0).getMinions().add(new Minion(2, false));
-                   p1.setMoney(p1.getMoney() - 5000);
-                    
+                if (p1.getMoney() > 5000) {
+                    p1.getBases().get(0).getMinions().add(new Minion(2, false));
+                    p1.setMoney(p1.getMoney() - 5000);
+
                 }
             }
         });
-      
+
         mbtn2.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -303,7 +284,7 @@ public class BaseAttack extends Application {
                 }
             }
         });
-        
+
         mbtn3.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -315,19 +296,19 @@ public class BaseAttack extends Application {
                 }
             }
         });
-        
-         mbtn4.setOnAction(new EventHandler<ActionEvent>() {
+
+        mbtn4.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                if(p1.getMoney() > 5000) {
-                   p1.getBases().get(1).getMinions().add(new Minion(2, false));
-                   p1.setMoney(p1.getMoney() - 5000);
-                    
+                if (p1.getMoney() > 5000) {
+                    p1.getBases().get(1).getMinions().add(new Minion(2, false));
+                    p1.setMoney(p1.getMoney() - 5000);
+
                 }
             }
         });
-      
+
         mbtn5.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -339,7 +320,7 @@ public class BaseAttack extends Application {
                 }
             }
         });
-        
+
         mbtn6.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -351,19 +332,19 @@ public class BaseAttack extends Application {
                 }
             }
         });
-        
-         mbtn7.setOnAction(new EventHandler<ActionEvent>() {
+
+        mbtn7.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                if(p1.getMoney() > 5000) {
-                   p1.getBases().get(2).getMinions().add(new Minion(2, false));
-                   p1.setMoney(p1.getMoney() - 5000);
-                    
+                if (p1.getMoney() > 5000) {
+                    p1.getBases().get(2).getMinions().add(new Minion(2, false));
+                    p1.setMoney(p1.getMoney() - 5000);
+
                 }
             }
         });
-      
+
         mbtn8.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -375,7 +356,7 @@ public class BaseAttack extends Application {
                 }
             }
         });
-        
+
         mbtn9.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -388,18 +369,18 @@ public class BaseAttack extends Application {
             }
         });
 
-         mbtn10.setOnAction(new EventHandler<ActionEvent>() {
+        mbtn10.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                if(p1.getMoney() > 5000) {
-                   p1.getBases().get(3).getMinions().add(new Minion(2, false));
-                   p1.setMoney(p1.getMoney() - 5000);
-                    
+                if (p1.getMoney() > 5000) {
+                    p1.getBases().get(3).getMinions().add(new Minion(2, false));
+                    p1.setMoney(p1.getMoney() - 5000);
+
                 }
             }
         });
-      
+
         mbtn11.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -411,7 +392,7 @@ public class BaseAttack extends Application {
                 }
             }
         });
-        
+
         mbtn12.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -423,19 +404,19 @@ public class BaseAttack extends Application {
                 }
             }
         });
-        
-         mbtn13.setOnAction(new EventHandler<ActionEvent>() {
+
+        mbtn13.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                if(p1.getMoney() > 5000) {
-                   p1.getBases().get(4).getMinions().add(new Minion(2, false));
-                   p1.setMoney(p1.getMoney() - 5000);
-                    
+                if (p1.getMoney() > 5000) {
+                    p1.getBases().get(4).getMinions().add(new Minion(2, false));
+                    p1.setMoney(p1.getMoney() - 5000);
+
                 }
             }
         });
-      
+
         mbtn14.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -447,7 +428,7 @@ public class BaseAttack extends Application {
                 }
             }
         });
-        
+
         mbtn15.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -460,14 +441,10 @@ public class BaseAttack extends Application {
             }
         });
 
-
-
-
         new AnimationTimer() {
             int tick = 0;
             int cloudTimer = 0;
             int choice = 0;
-         
 
             public void handle(long currentNanoTime) {
                 //actual gameloop code goes here
@@ -485,7 +462,7 @@ public class BaseAttack extends Application {
                     p1.update(p2);
                     choice = aiUpdate(p2, choice);
                     p2.update(p1);
-                    
+
                     gc2.drawImage(spaceBase720, 0, 0);
                     gc2.drawImage(spaceClouds720v1, cloudTimer % 2560, 0);
                     gc2.drawImage(spaceClouds720v1, (cloudTimer % 2560) - 2560, 0);
@@ -519,42 +496,40 @@ public class BaseAttack extends Application {
         launch(args);
     }
 
-
     public static int aiUpdate(Player player, int choice) {
-        if(player.getMoney() >= choice) {
-            switch(choice) {
+        if (player.getMoney() >= choice) {
+            switch (choice) {
                 case 1000:
-                    player.getBases().get((int)(Math.random() * player.getBases().size())).getMinions().add(new Minion(0, player.getDirection()));
+                    player.getBases().get((int) (Math.random() * player.getBases().size())).getMinions().add(new Minion(0, player.getDirection()));
                     player.setMoney(player.getMoney() - 1000);
                     break;
                 case 3000:
-                    player.getBases().get((int)(Math.random() * player.getBases().size())).getMinions().add(new Minion(1, player.getDirection()));
+                    player.getBases().get((int) (Math.random() * player.getBases().size())).getMinions().add(new Minion(1, player.getDirection()));
                     player.setMoney(player.getMoney() - 3000);
                     break;
                 case 5000:
-                    player.getBases().get((int)(Math.random() * player.getBases().size())).getMinions().add(new Minion(2, player.getDirection()));
+                    player.getBases().get((int) (Math.random() * player.getBases().size())).getMinions().add(new Minion(2, player.getDirection()));
                     player.setMoney(player.getMoney() - 5000);
                     break;
             }
-            choice = (int)(Math.random() * 3);
-            switch(choice) {
+            choice = (int) (Math.random() * 3);
+            switch (choice) {
                 case 0:
-                    return(1000);
+                    return (1000);
                 case 1:
-                    return(3000);
+                    return (3000);
                 case 2:
-                    return(5000);
+                    return (5000);
             }
-        }
-        else if(choice == 0){
-            choice = (int)(Math.random() * 3);
-            switch(choice) {
+        } else if (choice == 0) {
+            choice = (int) (Math.random() * 3);
+            switch (choice) {
                 case 0:
-                    return(1000);
+                    return (1000);
                 case 1:
-                    return(3000);
+                    return (3000);
                 case 2:
-                    return(5000);
+                    return (5000);
             }
         }
         return choice;
