@@ -37,10 +37,8 @@ import javafx.stage.Stage;
  * 
  * @todo
  *      This is really in no particular order, feel free to add
- *      Add price text to buttons
  *      Add Health bar
  *      Add Minion logic
- *          ranged
  *      Add functionality to pause menu
  *          write current game state to file
  *          audio settings
@@ -171,6 +169,27 @@ public class BaseAttack extends Application {
         pbtn.setFont(Font.font("Impact"));
         pbtn.setTranslateX(-400);
         pbtn.setTranslateY(330);
+        
+        Text audio = new Text();
+        audio.setText("Audio");
+        audio.setFont(Font.font("Impact", 60));
+        audio.setStroke(Color.RED);
+        audio.setFill(Color.BLACK);
+        audio.setTranslateX(10);
+        audio.setTranslateY(100);
+        
+        Button on = new Button(); 
+        on.setText("ON"); 
+        on.setFont(Font.font("Impact", 20));
+        
+        Button off = new Button(); 
+        off.setText("OFF"); 
+        off.setFont(Font.font("Impact", 20));
+        
+        VBox vBox6 = new VBox(on, off);
+        vBox6.setTranslateX(625);
+        vBox6.setTranslateY(500);
+        vBox6.setSpacing(5);
 
         //Added title to main menu and added style
         Text title = new Text();
@@ -205,6 +224,9 @@ public class BaseAttack extends Application {
         root2.getChildren().add(pbtn);
         root2.getChildren().add(ubtn);
         root2.getChildren().add(money);
+        
+        root3.getChildren().add(vBox6);
+        root3.getChildren().add(audio);
 
         Scene scene1 = new Scene(root1, 1280, 720);//title screen
         Scene scene2 = new Scene(root2, 1280, 720);//gameplay
