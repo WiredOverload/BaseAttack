@@ -61,7 +61,7 @@ public class Minion {
                 params = new SnapshotParameters();
                 params.setFill(Color.TRANSPARENT);
                 image = iv.snapshot(params, null);
-                health = 350;
+                health = 480;
                 speed = 1;
                 meleeAttack = 40;
                 rangedAttack = 0;
@@ -76,9 +76,9 @@ public class Minion {
                 params = new SnapshotParameters();
                 params.setFill(Color.TRANSPARENT);
                 image = iv.snapshot(params, null);
-                health = 80;
-                speed = 2;
-                meleeAttack = 10;
+                health = 50;
+                speed = 3;
+                meleeAttack = 80;
                 rangedAttack = 30;
                 break;
         }
