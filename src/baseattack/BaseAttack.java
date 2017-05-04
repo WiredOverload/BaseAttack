@@ -7,6 +7,7 @@
 package baseattack;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -450,6 +453,15 @@ public class BaseAttack extends Application {
                 }
             }
         });
+        
+        //music logic
+        Media music;
+        if((int)(Math.random() * 2) == 0)
+            music = new Media(new File("BigBang.mp3").toURI().toString());
+        else
+            music = new Media(new File("FallingWithStyle.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(music);
+        mediaPlayer.play();
 
         new AnimationTimer() {
             int tick = 0;

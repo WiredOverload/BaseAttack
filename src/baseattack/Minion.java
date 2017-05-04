@@ -6,10 +6,12 @@
  */
 package baseattack;
 
+import java.io.File;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
 /**
@@ -28,6 +30,7 @@ public class Minion {
     private int cooldown;//needed for bounce between attacks
     private int x; //the x coordinate of the minion
     private Image image; //sprite for the minion
+    AudioClip ping = new AudioClip(new File("ping.wav").toURI().toString());
 
     public Minion(int type, boolean direction) {
         //necesary rotation stuff
@@ -150,11 +153,13 @@ public class Minion {
         for (int i = 0; i < enemy.getMinions().size(); i++) {
             if (enemy.getDirection() == true) {
                 if (enemy.getMinions().get(i).getX() - x < 64) {
+                    ping.play();
                     cooldown = 10;//change this to change attacking speed
                     enemy.getMinions().get(i).setHealth(enemy.getMinions().get(i).getHealth() - meleeAttack);
                 }
             } else if (enemy.getDirection() == false) {
                 if (x - enemy.getMinions().get(i).getX() < 64) {
+                    ping.play();
                     cooldown = 10;//change this to change attacking speed
                     enemy.getMinions().get(i).setHealth(enemy.getMinions().get(i).getHealth() - meleeAttack);
                 }
@@ -162,25 +167,27 @@ public class Minion {
         }
         if (enemy.getDirection() == true) {
             if (enemy.getX() - x < 64 + 32) {
+                ping.play();
                 cooldown = 10;//change this to change attacking speed
                 enemy.setHealth(enemy.getHealth() - meleeAttack);
             }
         } else if (enemy.getDirection() == false) {
             if (x - enemy.getX() < 64 + 32) {
+                ping.play();
                 cooldown = 10;//change this to change attacking speed
                 enemy.setHealth(enemy.getHealth() - meleeAttack);
             }
         }
         if (enemy.getDirection() == true) {
             if (cooldown > 0) {
-                x -= speed / 2;//change this to change reversing speed
+                x -= (int)Math.ceil(speed / 2);//change this to change reversing speed
                 cooldown--;
             } else {
                 x += speed;
             }
         } else if (enemy.getDirection() == false) {
             if (cooldown > 0) {
-                x += speed / 2;//change this to change reversing speed
+                x += (int)Math.ceil(speed / 2);//change this to change reversing speed
                 cooldown--;
             } else {
                 x -= speed;
