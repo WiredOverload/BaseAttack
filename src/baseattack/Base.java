@@ -6,9 +6,11 @@
  */
 package baseattack;
 
+import java.io.File;
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 
 /**
  * Assignment: Author: Cumulative completion time:
@@ -25,6 +27,7 @@ public class Base {
     private int y;//this y coordinate has the y axis at the top of the screen
     private ArrayList<Minion> minions = new ArrayList<Minion>();
     private Image image;//placeholder image
+    AudioClip boom = new AudioClip(new File("src/Assets/boom.wav").toURI().toString());
 
     public Base(Boolean direction, int health, int x, int y) {
         this.direction = direction;
@@ -77,8 +80,10 @@ public class Base {
 
     public void update(Base enemy) {
         for(int i = 0; i < minions.size(); i++) {
-            if(minions.get(i).getHealth() < 1)
+            if(minions.get(i).getHealth() < 1) {
                 minions.remove(i);
+                boom.play();
+            }
             else
                 minions.get(i).update(enemy);
         }

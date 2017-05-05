@@ -41,22 +41,15 @@ import javafx.stage.Stage;
  * @todo
  *      This is really in no particular order, feel free to add
  *      Add Health bar
- *      Add Minion logic
  *      Add functionality to pause menu
  *          write current game state to file
- *          audio settings
- *          buttons for all the above
  *      Add sound effects
  *          explosions
  *          pew pew laser sounds
- *          space melee sound?
- *          music
  *      Add VFX
  *          hit indicator (smallExplosion)
  *          minion death explosions
  *          minion death pieces that fly out
- *      Add win/lose condition
- *      Add functionality to spawning buttons
  *      Add very light third cloud effect over everything?
  * @bugs
  *      indexOutOfBounds exception any time a base dies
