@@ -13,11 +13,11 @@ import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 
 /**
- * Assignment: Author: Cumulative completion time:
+ * Assignment: Final
  *
+ * Cumulative completion time: about a week
  *
- *
- * @author Michael Hodges
+ * @author REDACTED
  */
 public class Base {
 
@@ -80,7 +80,10 @@ public class Base {
         this.y = y;
     }
     
-
+    /**
+     * updates the base and its minions
+     * @param enemy the enemy base on the same level
+     */
     public void update(Base enemy) {
         for(int i = 0; i < minions.size(); i++) {
             if(minions.get(i).getHealth() < 1) {
@@ -99,6 +102,10 @@ public class Base {
         }
     }
     
+    /**
+     * Renders the base and its minions
+     * @param gc the graphics context to render to
+     */
     public void render(GraphicsContext gc) {
         for(int i = 0; i < minions.size(); i++){
             if(minions.get(i).getExplode() > 0 && minions.get(i).getExplode() < 3) {
