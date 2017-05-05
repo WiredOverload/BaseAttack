@@ -26,7 +26,7 @@ public class Minion {
     private int health;
     private int speed;
     private int meleeAttack; //attack value of melee attacks
-    private int rangedAttack; //attack value of ranged attacks
+    private int explode; //attack value of ranged attacks
     private int cooldown;//needed for bounce between attacks
     private int x; //the x coordinate of the minion
     private Image image; //sprite for the minion
@@ -52,7 +52,7 @@ public class Minion {
                 health = 100;
                 speed = 2;
                 meleeAttack = 20;
-                rangedAttack = 0;
+                explode = 0;
                 break;
             case 1://tank ship
                 iv = new ImageView(new Image("Assets/medium2.png"));
@@ -67,7 +67,7 @@ public class Minion {
                 health = 480;
                 speed = 1;
                 meleeAttack = 40;
-                rangedAttack = 0;
+                explode = 0;
                 break;
             case 2://ranged ship
                 iv = new ImageView(new Image("Assets/medium3.png"));
@@ -82,7 +82,7 @@ public class Minion {
                 health = 50;
                 speed = 3;
                 meleeAttack = 80;
-                rangedAttack = 30;
+                explode = 0;
                 break;
         }
         cooldown = 0;
@@ -102,8 +102,8 @@ public class Minion {
         return meleeAttack;
     }
 
-    public int getRangedAttack() {
-        return rangedAttack;
+    public int getExplode() {
+        return explode;
     }
 
     public int getX() {
@@ -130,8 +130,8 @@ public class Minion {
         this.meleeAttack = meleeAttack;
     }
 
-    public void setRangedAttack(int rangedAttack) {
-        this.rangedAttack = rangedAttack;
+    public void setExplode(int explode) {
+        this.explode = explode;
     }
 
     public void setX(int spawnTick) {
