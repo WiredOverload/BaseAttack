@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Michael Hodges
+ * @author Michael Hodges and Christian Jungers
  * 
  * @todo
  *      This is really in no particular order, feel free to add
@@ -77,11 +77,23 @@ public class BaseAttack extends Application {
         mediaPlayer.play();
 
         //Added all buttons we needed put in VBox for layout
-        Button btn = new Button();
-        btn.setText("Start Game");
-        btn.setFont(Font.font("Impact", 50));
-        btn.setStyle("-fx-text-fill: black; -fx-background-color: red;");
-        btn.setTranslateY(40);
+        Button easy = new Button();
+        easy.setText("Easy Game");
+        easy.setFont(Font.font("Impact", 40));
+        easy.setStyle("-fx-text-fill: black; -fx-background-color: red;");
+        easy.setTranslateY(-100);
+        
+        Button medium = new Button();
+        medium.setText("Medium Game");
+        medium.setFont(Font.font("Impact", 40));
+        medium.setStyle("-fx-text-fill: black; -fx-background-color: red;");
+        medium.setTranslateY(0);
+        
+        Button hard = new Button();
+        hard.setText("Hard Game");
+        hard.setFont(Font.font("Impact", 40));
+        hard.setStyle("-fx-text-fill: black; -fx-background-color: red;");
+        hard.setTranslateY(100);
 
         Button mbtn = new Button();
         mbtn.setText("Speed");
@@ -194,19 +206,6 @@ public class BaseAttack extends Application {
         mute.setFont(Font.font("Impact"));
         mute.setTranslateX(0);
         mute.setTranslateY(0);
-        
-        //Button on = new Button();
-        //on.setText("ON"); 
-        //on.setFont(Font.font("Impact", 20));
-        
-        //Button off = new Button();
-        //off.setText("OFF"); 
-        //off.setFont(Font.font("Impact", 20));
-        
-        //VBox vBox6 = new VBox(on, off);
-        //vBox6.setTranslateX(625);
-        //vBox6.setTranslateY(500);
-        //vBox6.setSpacing(5);
 
         //Added title to main menu and added style
         Text title = new Text();
@@ -214,7 +213,7 @@ public class BaseAttack extends Application {
         title.setFont(Font.font("Impact", 80));
         title.setStroke(Color.RED);
         title.setFill(Color.BLACK);
-        title.setTranslateY(-80);
+        title.setTranslateY(-250);
 
         //money bar for gameplay
         Text money = new Text();
@@ -236,7 +235,9 @@ public class BaseAttack extends Application {
         StackPane root2 = new StackPane();//for gameplay
         StackPane root3 = new StackPane();//for pause menu
 
-        root1.getChildren().add(btn);
+        root1.getChildren().add(easy);
+        root1.getChildren().add(medium);
+        root1.getChildren().add(hard);
         root1.getChildren().add(title);
 
         root2.getChildren().add(vBox1);
@@ -280,8 +281,8 @@ public class BaseAttack extends Application {
         GraphicsContext gc2 = canvas2.getGraphicsContext2D();
         GraphicsContext gc3 = canvas3.getGraphicsContext2D();
 
-        //start button
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+        //easy difficulty 
+        easy.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
@@ -292,7 +293,7 @@ public class BaseAttack extends Application {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy hh:mm:ss");
                     String myDate = dateFormat.format(date);
                     try (BufferedWriter out = new BufferedWriter(gameLog)) {
-                        out.write("Game started: " + myDate);
+                        out.write("Easy game started: " + myDate);
                         out.newLine();
                         out.close();
                     }
@@ -303,6 +304,65 @@ public class BaseAttack extends Application {
 
             }
         });
+        
+        //Medium difficulty increases enemy spawn speed and base health 
+        medium.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                primaryStage.setScene(scene2);
+                try {
+                    FileWriter gameLog = new FileWriter("game_log.txt", true);
+                    Date date = new Date();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy hh:mm:ss");
+                    String myDate = dateFormat.format(date);
+                    try (BufferedWriter out = new BufferedWriter(gameLog)) {
+                        out.write("Medium game started: " + myDate);
+                        out.newLine();
+                        out.close();
+                    }
+
+                } catch (IOException ex) {
+                    Logger.getLogger(BaseAttack.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                 p2.setIncome(p2.getIncome() + (p2.getIncome() * 1));
+                    for(int i = 0; i < p2.getBases().size(); i++) {
+                        p2.getBases().get(i).setHealth(p2.getBases().get(i).getHealth() + (p2.getBases().get(i).getHealth() / 1));
+                    }
+
+            }
+        });
+        
+        //Hard difficulty greater increase to enemy spawn speed and base health 
+         hard.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                primaryStage.setScene(scene2);
+                try {
+                    FileWriter gameLog = new FileWriter("game_log.txt", true);
+                    Date date = new Date();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy hh:mm:ss");
+                    String myDate = dateFormat.format(date);
+                    try (BufferedWriter out = new BufferedWriter(gameLog)) {
+                        out.write("Hard game started: " + myDate);
+                        out.newLine();
+                        out.close();
+                    }
+
+                } catch (IOException ex) {
+                    Logger.getLogger(BaseAttack.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                 p2.setIncome(p2.getIncome() + (p2.getIncome() * 3));
+                    for(int i = 0; i < p2.getBases().size(); i++) {
+                        p2.getBases().get(i).setHealth(p2.getBases().get(i).getHealth() + (p2.getBases().get(i).getHealth()* 2));
+                    }
+
+            }
+        });
+
 
         //pause button
         pbtn.setOnAction(new EventHandler<ActionEvent>() {
