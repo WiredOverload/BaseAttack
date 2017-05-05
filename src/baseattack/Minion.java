@@ -30,7 +30,7 @@ public class Minion {
     private int cooldown;//needed for bounce between attacks
     private int x; //the x coordinate of the minion
     private Image image; //sprite for the minion
-    AudioClip ping = new AudioClip(new File("ping.wav").toURI().toString());
+    AudioClip ping = new AudioClip(new File("src/Assets/ping.wav").toURI().toString());
 
     public Minion(int type, boolean direction) {
         //necesary rotation stuff
