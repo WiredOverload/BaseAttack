@@ -77,9 +77,9 @@ public class BaseAttack extends Application {
         //music logic
         Media music;
         if((int)(Math.random() * 2) == 0)
-            music = new Media(new File("BigBang.mp3").toURI().toString());
+            music = new Media(new File("src/Assets/BigBang.mp3").toURI().toString());
         else
-            music = new Media(new File("FallingWithStyle.mp3").toURI().toString());
+            music = new Media(new File("src/Assets/FallingWithStyle.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(music);
         mediaPlayer.play();
 
