@@ -6,8 +6,10 @@
  */
 package baseattack;
 
+import java.io.File;
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.AudioClip;
 
 /**
  * Assignment: Author: Cumulative completion time:
@@ -22,6 +24,7 @@ public class Player {
     Boolean direction;//false is facing right, true is facing left
     private int money;
     private ArrayList<Base> bases = new ArrayList<Base>();
+    AudioClip boom = new AudioClip(new File("src/Assets/boom.wav").toURI().toString());
     //upgrades
     private int income;
 
@@ -76,6 +79,7 @@ public class Player {
         for (int i = 0; i < bases.size(); i++) {
             if (bases.get(i).getHealth() < 1) {
                 bases.remove(i);
+                boom.play();
                 for (int j = 0; i < bases.size(); j++) {//this is assuming bases are 64x64 pixels large, change as needed
                     bases.get(j).setY((128 * j) + 64);
                 }
