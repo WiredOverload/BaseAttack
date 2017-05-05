@@ -1,8 +1,7 @@
 /*
  * Honor Code: I pledge that this program represents my own
- *     program code. I received help from (enter the names of
- *     others that helped with the assignment, write no one if
- *     you received no help) in designing and debugging my program.
+ *     program code. I received help from REDACTED
+ *     in designing and debugging my program.
  */
 package baseattack;
 
@@ -35,29 +34,20 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
+ * Assignment: Final
  *
- * @author Michael Hodges and Christian Jungers
- * 
- * @todo
- *      This is really in no particular order, feel free to add
- *      Add Health bar
- *      Add functionality to pause menu
- *          write current game state to file
- *      Add sound effects
- *          explosions
- *          pew pew laser sounds
- *      Add VFX
- *          hit indicator (smallExplosion)
- *          minion death explosions
- *          minion death pieces that fly out
- *      Add very light third cloud effect over everything?
- * @bugs
- *      indexOutOfBounds exception any time a base dies
- *          Player object line 80
- *          game doesn't actually crash though
+ * Cumulative completion time: about a week
+ *
+ * @author REDACTED
  */
+
+
 public class BaseAttack extends Application {
 
+    /**
+     * start of game and game loop
+     * @param primaryStage what stage the game will use
+     */
     @Override
     public void start(Stage primaryStage) {
         Player p1 = new Player(false, 300, 0); //user player
@@ -670,12 +660,19 @@ public class BaseAttack extends Application {
     }
 
     /**
+     * launches the game
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * chooses what the AI will spend its money on
+     * @param player, what player will have its money used
+     * @param choice, the previously chosen choice to spend money on
+     * @return the choice made to spend money on
+     */
     public static int aiUpdate(Player player, int choice) {
         if (player.getMoney() >= choice) {
             switch (choice) {

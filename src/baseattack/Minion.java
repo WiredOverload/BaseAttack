@@ -15,11 +15,11 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
 /**
- * Assignment: Author: Cumulative completion time:
+ * Assignment: Final
  *
+ * Cumulative completion time: about a week
  *
- *
- * @author Michael Hodges
+ * @author REDACTED
  */
 public class Minion {
 
@@ -150,6 +150,10 @@ public class Minion {
         this.cooldown = cooldown;
     }
 
+    /**
+     * updates the minion including movement and attacks
+     * @param enemy the enemy base on the same level
+     */
     public void update(Base enemy) {
         for (int i = 0; i < enemy.getMinions().size(); i++) {
             if (enemy.getDirection() == true) {
@@ -196,6 +200,12 @@ public class Minion {
         }
     }
 
+    /**
+     * Renders the minion in the correct place
+     * @param gc the graphics context to render to
+     * @param y the y coordinate of the base and all its minions
+     * @param direction what direction this minion should face
+     */
     public void render(GraphicsContext gc, int y, boolean direction) {
         if (direction == false) {
             gc.drawImage(image, x, y + 16);

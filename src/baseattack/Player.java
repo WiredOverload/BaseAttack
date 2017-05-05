@@ -12,11 +12,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.media.AudioClip;
 
 /**
- * Assignment: Author: Cumulative completion time:
+ * Assignment: Final
  *
+ * Cumulative completion time: about a week
  *
- *
- * @author Michael Hodges
+ * @author REDACTED
  */
 public class Player {
 
@@ -73,7 +73,10 @@ public class Player {
         this.direction = direction;
     }
 
-    //actual update code
+    /**
+     * update code that updates the player and its bases
+     * @param enemy the enemy player
+     */
     public void update(Player enemy) {
         money += income;
         for (int i = 0; i < bases.size(); i++) {
@@ -97,6 +100,10 @@ public class Player {
         }
     }
 
+    /**
+     * Renders the player and its bases
+     * @param gc the graphics context to render to
+     */
     public void render(GraphicsContext gc) {
         for (int i = 0; i < bases.size(); i++) {
             bases.get(i).render(gc);
