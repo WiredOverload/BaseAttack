@@ -1,7 +1,7 @@
 # BaseAttack
 Simple 2D game for Intermediate Programming final
 
-Created by REDACTED
+Created by Michael Hodges and Christion Jungers
 
 Controls will be added here as they become implemented.
 
